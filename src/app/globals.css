@@ -1,26 +1,46 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+ * Default (SV Classic) colours - taken from the logo.
+ * NOT "inline": Tailwind utilities read these CSS variables, so the theme switcher
+ * (src/config/themes.ts) can change the whole site by overriding them.
+ */
+@theme {
+  --color-forge: #eabe4d;
+  --color-furnace: #d76b0f;
+  --color-charcoal: #212424;
+  --color-sun: #f5cb1a;
+  --color-rust: #953f11;
+  --color-steel: #3e4a61;
+  --color-navy: #1b2f5e;
+  --color-navy-dark: #12214a;
+  --color-cream: #fff6e3;
+  --color-mist: #eef0f4;
+
+  /* Poppins everywhere (loaded in layout.tsx) */
+  --font-sans: var(--font-poppins), "Segoe UI", Arial, sans-serif;
+  --font-heading: var(--font-poppins), "Segoe UI", Arial, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  scroll-behavior: smooth;
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+  color: #1e2433;
+  font-family: var(--font-sans);
+}
+h1, h2, h3, h4 {
+  letter-spacing: -0.01em;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* respect visitors who ask for less motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
