@@ -1,4 +1,6 @@
 import { Header, HeaderSpacer } from "@/components/site/Header";
+import { Footer } from "@/components/site/Footer";
+import { WhatsAppButton } from "@/components/site/WhatsAppButton";
 import { site } from "@/config/site";
 
 // SEO: local business details come from src/config/site.ts
@@ -28,6 +30,8 @@ export default function SiteLayout({ children }: LayoutProps<"/">) {
       <Header />
       <HeaderSpacer />
       <main className="flex-1 overflow-x-clip">{children}</main>
+      <Footer />
+      <WhatsAppButton />
     </>
   );
 }

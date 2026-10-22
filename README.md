@@ -1,21 +1,16 @@
-# SV Products website
+# SV Products website (svproducts_next)
 
-Next.js 16 (App Router) + TypeScript + Tailwind CSS 4.
-
-**This release contains the navbar, the hero section and a "website under development" notice only.** Links to pages that are not published yet are shown as disabled.
+Next.js 16 (App Router) + TypeScript + Tailwind CSS 4 + Supabase.
 
 ## Run
-
     npm install
-    npm run dev        # http://localhost:3000
+    copy .env.local.example .env.local   # then fill in the Supabase keys
+    npm run dev                          # http://localhost:3000
 
-## Where things are
+## Structure
+- `src/app/(site)`   public pages (to build)      - `src/app/admin`  admin area (login guarded by `src/proxy.ts`)
+- `src/lib/supabase` browser / server / admin clients      - `src/lib/site.ts` company details
+- `supabase/migrations` SQL for tables (next step)
+- `public/brand` logos, `public/products` 46 product images (transparent PNG)
 
-- `src/components/site/Header.tsx` &ndash; navbar (smart hide, mobile menu, scroll progress, theme switcher)
-- `src/components/site/Hero.tsx` &ndash; hero section
-- `src/components/site/UnderDevelopment.tsx` &ndash; "website under development" notice under the hero; hides itself once every menu page is live
-- `src/components/site/SiteLink.tsx` &ndash; renders disabled links for unpublished pages
-- `src/config/site.ts` &ndash; company details, menu, and `livePages` (add a path here when that page is ready)
-- `src/config/themes.ts` &ndash; website colour themes
-
-To turn every page link on locally, put `NEXT_PUBLIC_ALL_PAGES=true` in `.env.local`.
+## Brand colours (Tailwind): forge, furnace, charcoal, sun, rust, steel, navy, navy-dark, cream, mist

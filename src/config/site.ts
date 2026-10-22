@@ -24,10 +24,10 @@ export const siteConfig = {
 
   contact: {
     phones: [
-      { label: "Sales", number: "+917772800020", display: "+91 77728 00020" },
+      { label: "Sales", number: "+917566666603", display: "+91 75666 66603" },
       // { label: "Support", number: "+91XXXXXXXXXX", display: "+91 XXXXX XXXXX" },
     ],
-    whatsapp: "917772800020",   // digits only, with country code
+    whatsapp: "917566666603",   // digits only, with country code
     whatsappMessage: "Hello SV Products, I would like a quotation.",
     email: "info@svproducts.in",
     salesEmail: "",
