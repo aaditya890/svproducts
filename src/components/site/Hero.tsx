@@ -49,7 +49,6 @@ export function Hero() {
       <div aria-hidden className="absolute inset-0 -z-10 opacity-[0.07] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:56px_56px]" />
       {/* flat accent blocks */}
       <div aria-hidden className="absolute bottom-0 right-0 -z-10 hidden h-28 w-28 rounded-tl-3xl bg-furnace lg:block" />
-      <div aria-hidden className="absolute right-[7%] top-0 -z-10 hidden h-44 w-3 origin-top rotate-[-28deg] bg-furnace/90 lg:block" />
 
       {/* content */}
       <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-start px-4 pb-10 pt-28 sm:px-6 lg:justify-center lg:pb-32 lg:pt-36">
