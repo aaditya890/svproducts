@@ -86,7 +86,7 @@ export function ProductShowcase({ ranges }: { ranges: ShowcaseRange[] }) {
   const [active, setActive] = useState(0);
 
   return (
-    <div className="mt-12">
+    <div className="mt-8 sm:mt-12">
       {/* mobile / tablet: tabs + one panel */}
       <div className="lg:hidden">
         <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-3 [scrollbar-width:none]">

@@ -11,10 +11,10 @@ import { Reveal, Stagger, StaggerItem } from "./motion";
 export function ServicesGrid({ limit }: { limit?: number }) {
   const list = limit ? services.slice(0, limit) : services;
   return (
-    <Stagger className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+    <Stagger className="-mx-4 mt-9 flex scroll-pl-4 snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-x-10 sm:gap-y-12 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3 xl:grid-cols-5">
       {list.map((s) => (
-        <StaggerItem key={s.slug} className="h-full">
-          <Link href={`/services#${s.slug}`} className="group flex h-full flex-col">
+        <StaggerItem key={s.slug} className="h-auto w-[78%] shrink-0 snap-start sm:h-full sm:w-auto">
+          <Link href={`/services#${s.slug}`} className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-5 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0">
             <div className="flex items-end gap-4 border-b border-white/15 pb-5 transition group-hover:border-furnace">
               <LineIcon name={s.icon} size={52} className="shrink-0 text-furnace transition duration-300 group-hover:-translate-y-1" />
               <h3 className="text-lg font-semibold leading-snug">{s.title}</h3>
@@ -31,16 +31,18 @@ export function ServicesGrid({ limit }: { limit?: number }) {
 /** Numbered steps joined by a rule - no boxes. Works on light or dark backgrounds. */
 export function ProcessSteps() {
   return (
-    <Stagger className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    <Stagger className="mt-8 grid gap-3 sm:mt-14 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
       {steps.map((s, i) => (
         <StaggerItem key={s.title}>
-          <div className="group relative border-t-2 border-navy/15 pt-6 transition hover:border-furnace">
-            <span className="text-6xl font-extrabold leading-none text-transparent [-webkit-text-stroke:1.5px_var(--color-furnace)]">{String(i + 1).padStart(2, "0")}</span>
-            <div className="mt-5 flex items-center gap-3">
-              <LineIcon name={s.icon} size={34} className="text-navy transition group-hover:text-furnace" />
-              <h3 className="text-lg font-semibold text-navy">{s.title}</h3>
+          <div className="group relative flex items-start gap-4 rounded-2xl bg-white p-4 shadow-sm sm:block sm:rounded-none sm:border-t-2 sm:border-navy/15 sm:bg-transparent sm:p-0 sm:pt-6 sm:shadow-none sm:transition sm:hover:border-furnace">
+            <span className="shrink-0 text-4xl font-extrabold leading-none text-transparent [-webkit-text-stroke:1.5px_var(--color-furnace)] sm:text-6xl">{String(i + 1).padStart(2, "0")}</span>
+            <div className="min-w-0">
+              <div className="flex items-center gap-3 sm:mt-5">
+                <LineIcon name={s.icon} size={30} className="shrink-0 text-navy transition group-hover:text-furnace" />
+                <h3 className="text-lg font-semibold text-navy">{s.title}</h3>
+              </div>
+              <p className="mt-1.5 text-sm leading-relaxed text-steel sm:mt-2">{s.text}</p>
             </div>
-            <p className="mt-2 text-sm leading-relaxed text-steel">{s.text}</p>
           </div>
         </StaggerItem>
       ))}
@@ -139,8 +141,7 @@ export function AboutPreview({ stats: s3 }: { stats?: { value: string; label: st
 
 export function Cta() {
   return (
-    <section className="relative overflow-hidden bg-navy-dark py-16 text-white">
-      <div aria-hidden className="absolute -right-10 -top-24 h-64 w-5 rotate-[35deg] bg-furnace" />
+    <section className="relative overflow-hidden bg-navy-dark py-12 text-white sm:py-16">
       <div aria-hidden className="absolute -bottom-6 left-1/4 h-14 w-14 bg-furnace" />
       <div className="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 sm:px-6 lg:flex-row lg:items-center">
         <div>
@@ -148,16 +149,16 @@ export function Cta() {
           <h2 className="mt-2 max-w-2xl text-3xl font-bold sm:text-4xl">Need scaffolding or shuttering material for your site?</h2>
           <p className="mt-2 text-white/70">Tell us your requirement &ndash; we will get back to you with a quotation.</p>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <Link href={site.cta.href} className="group flex items-stretch overflow-hidden rounded-lg bg-furnace text-white transition hover:bg-forge hover:text-navy-dark">
+        <div className="grid w-full gap-3 sm:flex sm:w-auto sm:flex-wrap sm:items-center">
+          <Link href={site.cta.href} className="group flex items-stretch justify-between overflow-hidden rounded-lg bg-furnace text-white transition hover:bg-forge hover:text-navy-dark">
             <span className="px-7 py-4 font-semibold">{site.cta.label}</span>
             <span className="flex w-14 items-center justify-center bg-black/15"><ArrowUpRight size={20} weight="bold" className="transition group-hover:rotate-45" /></span>
           </Link>
           {site.primaryPhone && (
-            <a href={`tel:${site.primaryPhone.number}`} className="inline-flex items-center gap-2 rounded-lg border border-white/30 px-6 py-4 font-semibold transition hover:bg-white/10"><Phone size={18} weight="bold" className="text-forge" />{site.primaryPhone.display}</a>
+            <a href={`tel:${site.primaryPhone.number}`} className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 px-6 py-4 font-semibold transition hover:bg-white/10"><Phone size={18} weight="bold" className="text-forge" />{site.primaryPhone.display}</a>
           )}
           {site.whatsappUrl && (
-            <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-[#25d366] px-6 py-4 font-semibold text-white transition hover:opacity-90"><FaWhatsapp size={22} />WhatsApp</a>
+            <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#25d366] px-6 py-4 font-semibold text-white transition hover:opacity-90"><FaWhatsapp size={22} />WhatsApp</a>
           )}
         </div>
       </div>

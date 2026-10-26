@@ -34,12 +34,12 @@ export function Hero() {
     <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-navy-dark text-white lg:min-h-[min(100svh,860px)]">
       {/* real site photo with parallax */}
       <motion.div style={reduce ? undefined : { y: yBg }} className="absolute inset-x-0 -top-10 -z-30 h-[calc(100%+120px)]">
-        <Image src="/hero/site.jpg" alt="" fill priority sizes="100vw" className="object-cover object-[70%_center] grayscale-[20%] brightness-110" />
+        <Image src="/hero/site.jpg" alt="" fill priority sizes="100vw" className="object-cover object-[70%_center] brightness-125 lg:grayscale-[20%] lg:brightness-110" />
       </motion.div>
       {/* colour + readability overlays */}
-      <div aria-hidden className="absolute inset-0 -z-20 bg-gradient-to-r from-navy-dark via-navy-dark/75 to-navy-dark/20" />
-      <div aria-hidden className="absolute inset-0 -z-20 bg-gradient-to-t from-navy-dark via-transparent to-navy-dark/60" />
-      <div aria-hidden className="absolute inset-0 -z-20 bg-navy/20 mix-blend-multiply" />
+      <div aria-hidden className="absolute inset-0 -z-20 bg-gradient-to-b from-navy-dark/85 via-navy-dark/55 to-navy-dark/70 lg:bg-gradient-to-r lg:from-navy-dark lg:via-navy-dark/75 lg:to-navy-dark/20" />
+      <div aria-hidden className="absolute inset-0 -z-20 hidden bg-gradient-to-t from-navy-dark via-transparent to-navy-dark/60 lg:block" />
+      <div aria-hidden className="absolute inset-0 -z-20 hidden bg-navy/20 mix-blend-multiply lg:block" />
       {/* background lines: rays + grid */}
       <div
         aria-hidden
@@ -57,7 +57,7 @@ export function Hero() {
           Scaffolding &bull; Shuttering &bull; Rental &bull; Training
         </motion.span>
 
-        <h1 className="mt-6 text-[2.7rem] font-extrabold leading-[1.02] sm:text-6xl xl:text-7xl">
+        <h1 className="mt-5 text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl xl:text-7xl">
           {words.map((w, i) => (
             <span key={w} className="block overflow-hidden pb-1">
               <motion.span custom={i} variants={wordVariants} initial={reduce ? "show" : "hidden"} animate="show" className={`block ${i === 1 ? "bg-gradient-to-r from-forge via-sun to-forge bg-clip-text text-transparent" : ""}`}>
@@ -71,7 +71,7 @@ export function Hero() {
           {site.heroText}
         </motion.p>
 
-        <motion.div {...up(0.7)} className="mt-8 flex flex-wrap items-stretch gap-3">
+        <motion.div {...up(0.7)} className="mt-7 flex flex-wrap items-stretch gap-3">
           <SiteLink href="/products" className="group flex items-stretch overflow-hidden rounded-lg bg-forge text-navy-dark transition hover:bg-sun">
             <span className="px-6 py-4 font-semibold">Browse products</span>
             <span className="flex w-12 items-center justify-center bg-black/10"><ArrowRight size={20} weight="bold" className="transition group-hover:translate-x-1" /></span>
@@ -93,9 +93,9 @@ export function Hero() {
         </motion.ul>
 
         {/* mobile / tablet quick links - fills the screen under the buttons */}
-        <motion.div {...up(1)} className="mt-9 grid gap-2.5 lg:hidden">
+        <motion.div {...up(1)} className="mt-8 grid gap-2.5 lg:hidden">
           {quick.map((q) => (
-            <SiteLink key={q.n} href={q.href} className="group flex items-center gap-4 rounded-xl border border-white/15 bg-navy-dark/60 px-4 py-3.5 backdrop-blur-md transition active:bg-furnace">
+            <SiteLink key={q.n} href={q.href} className="group flex items-center gap-4 rounded-2xl border border-white/20 border-l-4 border-l-forge bg-navy-dark/90 px-4 py-3 shadow-lg shadow-black/30 transition active:bg-furnace">
               <span className="text-2xl font-extrabold text-transparent [-webkit-text-stroke:1.2px_var(--color-forge)]">{q.n}</span>
               <span className="min-w-0 flex-1">
                 <span className="block text-[15px] font-semibold leading-tight">{q.title}</span>

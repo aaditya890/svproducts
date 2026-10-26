@@ -49,16 +49,16 @@ export default function Home() {
       <Stats />
 
       {/* why us - line icons in columns */}
-      <section className="bg-white py-20">
-        <Stagger className="mx-auto grid max-w-7xl gap-x-10 gap-y-12 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+      <section className="bg-white py-10 sm:py-20">
+        <Stagger className="mx-auto grid max-w-7xl grid-cols-2 gap-3 px-4 sm:gap-x-10 sm:gap-y-12 sm:px-6 lg:grid-cols-4">
           {features.map(({ icon: Icon, title, text }) => (
             <StaggerItem key={title}>
-              <div className="group">
-                <div className="flex items-end gap-4 border-b border-navy/15 pb-5 transition group-hover:border-furnace">
-                  <Icon size={54} weight="light" className="shrink-0 text-furnace transition duration-300 group-hover:-translate-y-1" />
-                  <h3 className="text-lg font-semibold leading-snug text-navy-dark">{title}</h3>
+              <div className="group h-full rounded-2xl bg-mist p-4 sm:rounded-none sm:bg-transparent sm:p-0">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-4 sm:border-b sm:border-navy/15 sm:pb-5 sm:transition sm:group-hover:border-furnace">
+                  <Icon weight="light" className="size-10 shrink-0 text-furnace transition duration-300 group-hover:-translate-y-1 sm:size-[54px]" />
+                  <h3 className="text-base font-semibold leading-snug text-navy-dark sm:text-lg">{title}</h3>
                 </div>
-                <p className="mt-5 text-sm leading-relaxed text-steel">{text}</p>
+                <p className="mt-2 text-[13px] leading-relaxed text-steel sm:mt-5 sm:text-sm">{text}</p>
               </div>
             </StaggerItem>
           ))}
@@ -70,15 +70,14 @@ export default function Home() {
       </Suspense>
 
       {/* products */}
-      <section id="range" className="relative overflow-hidden bg-navy-dark py-24 text-white">
+      <section id="range" className="relative overflow-hidden bg-navy-dark py-12 text-white sm:py-24">
         <div aria-hidden className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:64px_64px]" />
-        <div aria-hidden className="absolute -right-16 top-0 h-72 w-4 rotate-[30deg] bg-furnace" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
                 <Eyebrow light>Our range</Eyebrow>
-                <h2 className="mt-3 max-w-2xl text-4xl font-bold leading-tight sm:text-5xl">Scaffolding systems for <span className="text-forge">every height</span></h2>
+                <h2 className="mt-3 max-w-2xl text-3xl font-bold leading-tight sm:text-5xl">Scaffolding systems for <span className="text-forge">every height</span></h2>
               </div>
               <MoreLink href="/products" light>Full catalogue</MoreLink>
             </div>
@@ -90,27 +89,27 @@ export default function Home() {
       </section>
 
       {/* services */}
-      <section className="relative overflow-hidden bg-[#0d1736] py-24 text-white">
+      <section className="relative overflow-hidden bg-[#0d1736] py-12 text-white sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
               <Eyebrow light>What we do</Eyebrow>
-              <h2 className="mt-3 text-4xl font-bold leading-tight sm:text-5xl">Everything you need for working at height</h2>
+              <h2 className="mt-3 text-3xl font-bold leading-tight sm:text-5xl">Everything you need for working at height</h2>
             </div>
           </Reveal>
           <ServicesGrid />
-          <div className="mt-14 text-center"><MoreLink href="/services" light>More services</MoreLink></div>
+          <div className="mt-6 text-center sm:mt-14"><MoreLink href="/services" light>More services</MoreLink></div>
         </div>
       </section>
 
       {/* process */}
-      <section className="bg-mist py-24">
+      <section className="bg-mist py-12 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div>
                 <Eyebrow>Simple process</Eyebrow>
-                <h2 className="mt-3 text-4xl font-bold leading-tight text-navy-dark sm:text-5xl">From enquiry to <span className="text-furnace">site delivery</span></h2>
+                <h2 className="mt-3 text-3xl font-bold leading-tight text-navy-dark sm:text-5xl">From enquiry to <span className="text-furnace">site delivery</span></h2>
               </div>
               <MoreLink href="/quote">Request a quote</MoreLink>
             </div>
@@ -120,15 +119,15 @@ export default function Home() {
       </section>
 
       {/* faq */}
-      <section className="bg-white py-24">
+      <section className="bg-white py-12 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <Reveal>
             <div className="mx-auto max-w-2xl text-center">
               <Eyebrow>Questions</Eyebrow>
-              <h2 className="mt-3 text-4xl font-bold text-navy-dark sm:text-5xl">Frequently asked questions</h2>
+              <h2 className="mt-3 text-3xl font-bold text-navy-dark sm:text-5xl">Frequently asked questions</h2>
             </div>
           </Reveal>
-          <Reveal delay={0.1} className="mt-12"><Faq items={faqs} /></Reveal>
+          <Reveal delay={0.1} className="mt-8 sm:mt-12"><Faq items={faqs} /></Reveal>
         </div>
       </section>
 
