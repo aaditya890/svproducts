@@ -1,4 +1,5 @@
 import type { ComponentType, ReactNode } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownRight } from "@phosphor-icons/react/ssr";
 import { Check, ClipboardText as ClipboardList, GraduationCap, Hammer, Stack as Layers, CalendarCheck as CalendarClock, Package, Phone, Ruler, ShieldCheck, Truck, Wrench, CaretDown as ChevronDown } from "@phosphor-icons/react/ssr";
@@ -48,18 +49,23 @@ export function SectionHeading({ eyebrow, title, accent, text, center }: { eyebr
   );
 }
 
-export function PageHero({ title, accent, crumb, text }: { title: string; accent?: string; crumb: string; text?: string }) {
+export function PageHero({ title, accent, crumb, parent, text }: { title: string; accent?: string; crumb: string; parent?: { href: string; label: string }; text?: string }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-navy-dark via-navy to-steel text-white">
-      <div className="absolute inset-0 opacity-25 [background:repeating-conic-gradient(from_195deg_at_90%_130%,#eabe4d_0_2deg,transparent_2deg_7deg)]" />
-      <div className="relative mx-auto max-w-7xl px-4 py-14 sm:px-6">
-        <p className="text-sm text-white/60">
-          <Link href="/" className="hover:text-forge">Home</Link> / <span className="text-forge">{crumb}</span>
-        </p>
-        <h1 className="mt-3 text-4xl font-bold sm:text-5xl">
-          {title} {accent && <span className="text-forge">{accent}</span>}
+    <section className="relative isolate overflow-hidden bg-navy-dark text-white">
+      <Image src="/hero/site.webp" alt="" fill priority sizes="100vw" className="-z-30 object-cover object-[70%_center] brightness-110" />
+      <div aria-hidden className="absolute inset-0 -z-20 bg-gradient-to-r from-navy-dark via-navy-dark/85 to-navy-dark/55" />
+      <div aria-hidden className="absolute inset-0 -z-10 opacity-[0.07] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:56px_56px]" />
+      <div aria-hidden className="absolute bottom-0 right-0 -z-10 h-12 w-12 rounded-tl-2xl bg-furnace sm:h-16 sm:w-16" />
+      <div className="mx-auto max-w-7xl px-4 pb-10 pt-10 sm:px-6 sm:pb-14 sm:pt-14">
+        <nav aria-label="Breadcrumb" className="inline-flex flex-wrap items-center gap-x-2 rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-xs text-white/70 backdrop-blur sm:text-sm">
+          <Link href="/" className="hover:text-forge">Home</Link>
+          {parent && (<><span aria-hidden>/</span><Link href={parent.href} className="hover:text-forge">{parent.label}</Link></>)}
+          <span aria-hidden>/</span><span className="text-forge">{crumb}</span>
+        </nav>
+        <h1 className="mt-4 text-4xl font-extrabold leading-[1.05] sm:text-6xl">
+          {title} {accent && <span className="bg-gradient-to-r from-forge via-sun to-forge bg-clip-text text-transparent">{accent}</span>}
         </h1>
-        {text && <p className="mt-3 max-w-2xl text-white/75">{text}</p>}
+        {text && <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">{text}</p>}
       </div>
     </section>
   );
@@ -84,7 +90,7 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
 export function Section({ children, tone = "white", id }: { children: ReactNode; tone?: "white" | "cream" | "navy"; id?: string }) {
   const bg = tone === "cream" ? "bg-cream" : tone === "navy" ? "bg-navy text-white" : "bg-white";
   return (
-    <section id={id} className={`${bg} py-16`}>
+    <section id={id} className={`${bg} py-10 sm:py-16`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6">{children}</div>
     </section>
   );

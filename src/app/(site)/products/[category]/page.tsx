@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getCategories, getCategoryWithProducts } from "@/lib/data";
 import { QuoteLink } from "@/components/site/SiteLink";
+import { PageHero } from "@/components/site/ui";
 
 export async function generateStaticParams() {
   return (await getCategories()).map((c) => ({ category: c.slug }));
@@ -25,15 +26,7 @@ async function Content({ params }: { params: PageProps<"/products/[category]">["
   const cards = data.products.filter((p) => p.product_variants.length === 0);
   return (
     <>
-      <div className="bg-gradient-to-r from-navy-dark to-navy py-10 text-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
-          <Link href="/products" className="text-sm text-forge hover:underline">
-            &larr; All products
-          </Link>
-          <h1 className="mt-2 text-5xl font-bold">{data.category.name}</h1>
-          <p className="mt-1 text-white/70">{data.products.length} product types</p>
-        </div>
-      </div>
+      <PageHero title={data.category.name} crumb={data.category.name} parent={{ href: "/products", label: "Products" }} text={`${data.products.length} product types`} />
       <div className="mx-auto max-w-7xl space-y-10 px-4 py-10 sm:px-6">
         {sized.map((p) => {
           const cols = ["Name", ...p.spec_columns];
@@ -87,10 +80,10 @@ async function Content({ params }: { params: PageProps<"/products/[category]">["
           <section>
             {sized.length > 0 && <h2 className="mb-5 border-b-2 border-navy/10 pb-3 text-2xl font-bold text-navy">More in this range</h2>}
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {cards.map((p) => (
+              {cards.map((p, idx) => (
                 <article key={p.id} id={p.slug} className="group flex flex-col overflow-hidden rounded-2xl border border-forge/30 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                   <div className="relative h-56 bg-cream">
-                    {p.image_path && <Image src={p.image_path} alt={p.name} fill sizes="(min-width:1280px) 25vw, (min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-contain p-3" />}
+                    {p.image_path && <Image src={p.image_path} alt={p.name} fill priority={idx < 4} sizes="(min-width:1280px) 25vw, (min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" className="object-contain p-3" />}
                   </div>
                   <div className="flex flex-1 items-center justify-between gap-3 border-t-4 border-forge px-4 py-3">
                     <h3 className="text-base font-semibold leading-snug text-navy">{p.name}</h3>
