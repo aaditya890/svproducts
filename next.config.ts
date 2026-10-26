@@ -12,8 +12,10 @@ const nextConfig: NextConfig = {
   },
   partialPrefetching: true,
   async headers() {
+    // Long browser cache for image FILES only. (Never for pages such as /products or /products/cuplock,
+    // otherwise a catalogue change would not reach returning visitors for weeks.)
     const cache = [{ key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" }];
-    return ["/products/:path*", "/hero/:path*", "/brand/:path*"].map((source) => ({ source, headers: cache }));
+    return [{ source: "/:path*.(webp|png|jpg|jpeg|avif|svg|ico)", headers: cache }];
   },
   turbopack: {
     rules: {
