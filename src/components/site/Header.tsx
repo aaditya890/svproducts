@@ -12,15 +12,17 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 import { Socials } from "./Socials";
 import { ScrollProgress } from "./motion";
 import { SiteLink } from "./SiteLink";
+import { AnnouncementBar } from "./AnnouncementBar";
+import type { Announcement } from "@/config/announcement";
 
 /** Keeps page content below the fixed header on every page except Home (where the hero sits under it). */
-export function HeaderSpacer() {
+export function HeaderSpacer({ announcement }: { announcement?: boolean }) {
   const home = usePathname() === "/";
   if (home) return null;
-  return <div aria-hidden className="h-[68px] lg:h-[112px]" />;
+  return <div aria-hidden className={announcement ? "h-[100px] lg:h-[148px]" : "h-[68px] lg:h-[112px]"} />;
 }
 
-export function Header() {
+export function Header({ announcement }: { announcement?: Announcement | null }) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -59,6 +61,12 @@ export function Header() {
     <>
       <ScrollProgress />
       <header className={`fixed inset-x-0 top-0 z-50 transition-transform duration-300 ${hidden && !open ? "-translate-y-full" : "translate-y-0"}`}>
+        {/* announcement bar (editable in Admin > Announcement); folds away once the page is scrolled */}
+        {announcement && (
+          <div className={`overflow-hidden transition-all duration-300 ${scrolled ? "max-h-0 opacity-0" : "max-h-9 opacity-100"}`}>
+            <AnnouncementBar a={announcement} />
+          </div>
+        )}
         {/* info bar */}
         <div className={`hidden overflow-hidden bg-charcoal/95 text-xs text-white/80 transition-all duration-300 lg:block ${scrolled ? "max-h-0 opacity-0" : "max-h-10 opacity-100"}`}>
           <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2.5">

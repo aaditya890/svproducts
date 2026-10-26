@@ -2,6 +2,7 @@ import { Header, HeaderSpacer } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
 import { site } from "@/config/site";
+import { getAnnouncement } from "@/lib/data";
 
 // SEO: local business details come from src/config/site.ts
 const jsonLd = {
@@ -23,12 +24,13 @@ const jsonLd = {
   },
 };
 
-export default function SiteLayout({ children }: LayoutProps<"/">) {
+export default async function SiteLayout({ children }: LayoutProps<"/">) {
+  const announcement = await getAnnouncement();
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Header />
-      <HeaderSpacer />
+      <Header announcement={announcement} />
+      <HeaderSpacer announcement={!!announcement} />
       <main className="flex-1 overflow-x-clip">{children}</main>
       <Footer />
       <WhatsAppButton />

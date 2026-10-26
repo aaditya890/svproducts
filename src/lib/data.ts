@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { cacheLife, cacheTag } from "next/cache";
+import type { Announcement } from "@/config/announcement";
 
 // Cookie-less client for PUBLIC catalogue data (safe to cache). RLS only exposes active products.
 const db = () =>
@@ -79,4 +80,18 @@ export async function getShowcase(): Promise<ShowcaseRange[]> {
       .sort((a, b) => a.sort - b.sort)
       .map((p) => ({ slug: p.slug, name: p.name, code: p.code, image: p.image_path, sizes: p.product_variants?.[0]?.count ?? 0 })),
   }));
+}
+
+/** Announcement bar content. Returns null when switched off, empty, or when the table does not exist yet. */
+export async function getAnnouncement(): Promise<Announcement | null> {
+  "use cache";
+  cacheTag("announcement");
+  cacheLife("hours");
+  try {
+    const { data, error } = await db().from("site_announcement").select("enabled,badge,message,link_label,link_url,tone").eq("id", 1).maybeSingle();
+    if (error || !data || !data.enabled || !data.message.trim()) return null;
+    return data as Announcement;
+  } catch {
+    return null;
+  }
 }
