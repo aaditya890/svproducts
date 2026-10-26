@@ -34,7 +34,7 @@ export function Hero() {
     <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-navy-dark text-white lg:min-h-[min(100svh,860px)]">
       {/* real site photo with parallax */}
       <motion.div style={reduce ? undefined : { y: yBg }} className="absolute inset-x-0 -top-10 -z-30 h-[calc(100%+120px)]">
-        <Image src="/hero/site.jpg" alt="" fill priority sizes="100vw" className="object-cover object-[70%_center] brightness-125 lg:grayscale-[20%] lg:brightness-110" />
+        <Image src="/hero/site.webp" alt="" fill priority sizes="100vw" className="object-cover object-[70%_center] brightness-125 lg:grayscale-[20%] lg:brightness-110" />
       </motion.div>
       {/* colour + readability overlays */}
       <div aria-hidden className="absolute inset-0 -z-20 bg-gradient-to-b from-navy-dark/85 via-navy-dark/55 to-navy-dark/70 lg:bg-gradient-to-r lg:from-navy-dark lg:via-navy-dark/75 lg:to-navy-dark/20" />

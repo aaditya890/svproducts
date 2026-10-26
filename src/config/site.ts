@@ -53,8 +53,8 @@ export const siteConfig = {
 
   site: {
     url: "https://www.svproducts.in",
-    logo: "/brand/logo-symbol.png",
-    logoFull: "/brand/logo-full.png",
+    logo: "/brand/logo-symbol.webp",
+    logoFull: "/brand/logo-full.webp",
   },
 
   nav: [
