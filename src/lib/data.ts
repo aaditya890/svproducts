@@ -86,7 +86,7 @@ export async function getShowcase(): Promise<ShowcaseRange[]> {
 export async function getAnnouncement(): Promise<Announcement | null> {
   "use cache";
   cacheTag("announcement");
-  cacheLife("hours");
+  cacheLife("minutes"); // short cache: an edit made in the admin shows on the live site within minutes
   try {
     const { data, error } = await db().from("site_announcement").select("enabled,badge,message,link_label,link_url,tone").eq("id", 1).maybeSingle();
     if (error || !data || !data.enabled || !data.message.trim()) return null;
