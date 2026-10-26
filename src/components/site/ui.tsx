@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowDownRight } from "@phosphor-icons/react/ssr";
 import { Check, ClipboardText as ClipboardList, GraduationCap, Hammer, Stack as Layers, CalendarCheck as CalendarClock, Package, Phone, Ruler, ShieldCheck, Truck, Wrench, CaretDown as ChevronDown } from "@phosphor-icons/react/ssr";
 import type { IconName } from "@/config/content";
+import { isLive } from "./SiteLink";
 
 const icons: Record<IconName, ComponentType<{ className?: string; size?: number; weight?: "duotone" | "regular" | "bold" | "fill" }>> = {
   package: Package, hammer: Hammer, calendar: CalendarClock, graduation: GraduationCap, ruler: Ruler, shield: ShieldCheck,
@@ -26,6 +27,7 @@ export function Eyebrow({ children, light }: { children: ReactNode; light?: bool
 
 /** Underlined uppercase link with a diagonal arrow, e.g. "MORE SERVICES ↘" */
 export function MoreLink({ href, children, light }: { href: string; children: ReactNode; light?: boolean }) {
+  if (!isLive(href)) return null; // page not published yet
   return (
     <Link href={href} className={`group inline-flex items-center gap-2 border-b pb-1 text-sm font-semibold uppercase tracking-wide transition ${light ? "border-forge text-forge hover:text-white" : "border-furnace text-furnace hover:text-navy"}`}>
       {children}

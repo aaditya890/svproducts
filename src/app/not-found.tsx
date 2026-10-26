@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Header, HeaderSpacer } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { site } from "@/config/site";
+import { SiteLink } from "@/components/site/SiteLink";
 
 export default function NotFound() {
   return (
@@ -15,7 +16,7 @@ export default function NotFound() {
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link href="/" className="rounded-md bg-navy px-6 py-3 font-semibold text-white hover:bg-furnace">Back to home</Link>
           <Link href="/products" className="rounded-md border border-navy px-6 py-3 font-semibold text-navy hover:bg-navy hover:text-white">View products</Link>
-          <Link href={site.cta.href} className="rounded-md bg-furnace px-6 py-3 font-semibold text-white hover:bg-navy">{site.cta.label}</Link>
+          <SiteLink href={site.cta.href} className="rounded-md bg-furnace px-6 py-3 font-semibold text-white hover:bg-navy">{site.cta.label}</SiteLink>
         </div>
       </main>
       <Footer />

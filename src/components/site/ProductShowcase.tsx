@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "@phosphor-icons/react";
 import type { ShowcaseRange } from "@/lib/data";
+import { QuoteLink } from "./SiteLink";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -72,9 +73,9 @@ function PanelBody({ range, index }: { range: ShowcaseRange; index: number }) {
             )}
           </AnimatePresence>
           {item && (
-            <Link href={`/quote?product=${encodeURIComponent(item.name)}`} className="absolute bottom-0 right-0 z-10 flex items-center gap-2 rounded-lg bg-furnace px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-dark">
+            <QuoteLink product={item.name} className="absolute bottom-0 right-0 z-10 flex items-center gap-2 rounded-lg bg-furnace px-5 py-3 text-sm font-semibold text-white transition hover:bg-navy-dark">
               Get quote <ArrowUpRight size={16} weight="bold" />
-            </Link>
+            </QuoteLink>
           )}
         </div>
       </div>

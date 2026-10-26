@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getCategories, getCategoryWithProducts } from "@/lib/data";
+import { QuoteLink } from "@/components/site/SiteLink";
 
 export async function generateStaticParams() {
   return (await getCategories()).map((c) => ({ category: c.slug }));
@@ -41,12 +42,9 @@ async function Content({ params }: { params: PageProps<"/products/[category]">["
               <div className="flex flex-wrap items-center gap-3 border-b-4 border-forge bg-cream px-5 py-3">
                 {p.code && <span className="rounded bg-furnace px-2 py-0.5 text-xs font-bold text-white">{p.code}</span>}
                 <h2 className="text-2xl font-semibold uppercase text-navy">{p.name}</h2>
-                <Link
-                  href={`/quote?product=${encodeURIComponent(p.name)}`}
-                  className="ml-auto rounded-md bg-navy px-4 py-1.5 text-sm font-semibold text-white hover:bg-furnace"
-                >
+                <QuoteLink product={p.name} className="ml-auto rounded-md bg-navy px-4 py-1.5 text-sm font-semibold text-white hover:bg-furnace">
                   Request quote
-                </Link>
+                </QuoteLink>
               </div>
               <div className="grid gap-6 p-5 lg:grid-cols-[1fr_320px]">
                 <div className="max-h-[28rem] overflow-auto rounded-lg border border-mist">
@@ -96,9 +94,9 @@ async function Content({ params }: { params: PageProps<"/products/[category]">["
                   </div>
                   <div className="flex flex-1 items-center justify-between gap-3 border-t-4 border-forge px-4 py-3">
                     <h3 className="text-base font-semibold leading-snug text-navy">{p.name}</h3>
-                    <Link href={`/quote?product=${encodeURIComponent(p.name)}`} className="shrink-0 rounded-md bg-navy px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-furnace">
+                    <QuoteLink product={p.name} className="shrink-0 rounded-md bg-navy px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-furnace">
                       Quote
-                    </Link>
+                    </QuoteLink>
                   </div>
                 </article>
               ))}

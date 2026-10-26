@@ -6,6 +6,7 @@ import { about, process as steps, services, stats } from "@/config/content";
 import { site } from "@/config/site";
 import { Eyebrow, LineIcon } from "./ui";
 import { Reveal, Stagger, StaggerItem } from "./motion";
+import { isLive } from "./SiteLink";
 
 /** Dark service columns: big thin line icons, rule, text, arrow (Industrium style). */
 export function ServicesGrid({ limit }: { limit?: number }) {
@@ -14,18 +15,23 @@ export function ServicesGrid({ limit }: { limit?: number }) {
     <Stagger className="-mx-4 mt-9 flex scroll-pl-4 snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:mt-14 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-x-10 sm:gap-y-12 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3 xl:grid-cols-5">
       {list.map((s) => (
         <StaggerItem key={s.slug} className="h-auto w-[78%] shrink-0 snap-start sm:h-full sm:w-auto">
-          <Link href={`/services#${s.slug}`} className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-5 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0">
+          <ServiceCard href={`/services#${s.slug}`} className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-5 sm:rounded-none sm:border-0 sm:bg-transparent sm:p-0">
             <div className="flex items-end gap-4 border-b border-white/15 pb-5 transition group-hover:border-furnace">
               <LineIcon name={s.icon} size={52} className="shrink-0 text-furnace transition duration-300 group-hover:-translate-y-1" />
               <h3 className="text-lg font-semibold leading-snug">{s.title}</h3>
             </div>
             <p className="mt-5 text-sm leading-relaxed text-white/65">{s.short}</p>
             <ArrowDownRight size={22} weight="bold" className="mt-auto pt-5 text-white/70 transition group-hover:translate-x-1 group-hover:translate-y-1 group-hover:text-forge" />
-          </Link>
+          </ServiceCard>
         </StaggerItem>
       ))}
     </Stagger>
   );
+}
+
+/** Link while the services page is live, plain card otherwise. */
+function ServiceCard({ href, className, children }: { href: string; className: string; children: React.ReactNode }) {
+  return isLive(href) ? <Link href={href} className={className}>{children}</Link> : <div className={className}>{children}</div>;
 }
 
 /** Numbered steps joined by a rule - no boxes. Works on light or dark backgrounds. */
@@ -122,10 +128,12 @@ export function AboutPreview({ stats: s3 }: { stats?: { value: string; label: st
           )}
 
           <div className="mt-10 flex flex-wrap items-center gap-5">
-            <Link href="/about" className="group flex items-stretch overflow-hidden rounded-lg bg-navy-dark text-white transition hover:bg-furnace">
-              <span className="px-6 py-4 font-semibold">More about us</span>
-              <span className="flex w-12 items-center justify-center bg-white/10"><ArrowUpRight size={20} weight="bold" className="transition group-hover:rotate-45" /></span>
-            </Link>
+            {isLive("/about") && (
+              <Link href="/about" className="group flex items-stretch overflow-hidden rounded-lg bg-navy-dark text-white transition hover:bg-furnace">
+                <span className="px-6 py-4 font-semibold">More about us</span>
+                <span className="flex w-12 items-center justify-center bg-white/10"><ArrowUpRight size={20} weight="bold" className="transition group-hover:rotate-45" /></span>
+              </Link>
+            )}
             {site.primaryPhone && (
               <a href={`tel:${site.primaryPhone.number}`} className="flex items-center gap-3 transition hover:text-furnace">
                 <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/70"><Phone size={22} weight="fill" className="text-furnace" /></span>
@@ -150,10 +158,12 @@ export function Cta() {
           <p className="mt-2 text-white/70">Tell us your requirement &ndash; we will get back to you with a quotation.</p>
         </div>
         <div className="grid w-full gap-3 sm:flex sm:w-auto sm:flex-wrap sm:items-center">
-          <Link href={site.cta.href} className="group flex items-stretch justify-between overflow-hidden rounded-lg bg-furnace text-white transition hover:bg-forge hover:text-navy-dark">
-            <span className="px-7 py-4 font-semibold">{site.cta.label}</span>
-            <span className="flex w-14 items-center justify-center bg-black/15"><ArrowUpRight size={20} weight="bold" className="transition group-hover:rotate-45" /></span>
-          </Link>
+          {isLive(site.cta.href) && (
+            <Link href={site.cta.href} className="group flex items-stretch justify-between overflow-hidden rounded-lg bg-furnace text-white transition hover:bg-forge hover:text-navy-dark">
+              <span className="px-7 py-4 font-semibold">{site.cta.label}</span>
+              <span className="flex w-14 items-center justify-center bg-black/15"><ArrowUpRight size={20} weight="bold" className="transition group-hover:rotate-45" /></span>
+            </Link>
+          )}
           {site.primaryPhone && (
             <a href={`tel:${site.primaryPhone.number}`} className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 px-6 py-4 font-semibold transition hover:bg-white/10"><Phone size={18} weight="bold" className="text-forge" />{site.primaryPhone.display}</a>
           )}

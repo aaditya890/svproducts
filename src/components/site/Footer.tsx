@@ -4,6 +4,7 @@ import { cacheLife } from "next/cache";
 import { Clock, Envelope as Mail, MapPin, Phone } from "@phosphor-icons/react/ssr";
 import { site } from "@/config/site";
 import { Socials } from "./Socials";
+import { SiteLink } from "./SiteLink";
 
 async function Year() {
   "use cache";
@@ -26,9 +27,9 @@ export function Footer() {
           <h3 className="text-lg font-semibold text-forge">Explore</h3>
           <ul className="mt-3 space-y-2 text-sm">
             {site.nav.map((n) => (
-              <li key={n.href}><Link href={n.href} className="hover:text-forge">{n.label}</Link></li>
+              <li key={n.href}><SiteLink href={n.href} soon className="hover:text-forge">{n.label}</SiteLink></li>
             ))}
-            <li><Link href={site.cta.href} className="hover:text-forge">{site.cta.label}</Link></li>
+            <li><SiteLink href={site.cta.href} className="hover:text-forge">{site.cta.label}</SiteLink></li>
           </ul>
         </div>
         <div>

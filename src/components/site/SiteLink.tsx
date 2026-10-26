@@ -27,3 +27,14 @@ export function SiteLink({ href, soon, className = "", children, ...rest }: Prop
     </span>
   );
 }
+
+/** "Request quote" link for one product: the quote form when that page is live, otherwise WhatsApp with the product name filled in. */
+export function QuoteLink({ product, className = "", children }: { product: string; className?: string; children: React.ReactNode }) {
+  if (isLive("/quote")) {
+    return <Link href={`/quote?product=${encodeURIComponent(product)}`} className={className}>{children}</Link>;
+  }
+  const text = encodeURIComponent(`Hello SV Products, I would like a quotation for ${product}.`);
+  return (
+    <a href={`https://wa.me/${site.whatsapp}?text=${text}`} target="_blank" rel="noopener noreferrer" className={className}>{children}</a>
+  );
+}
