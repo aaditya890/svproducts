@@ -5,13 +5,19 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { ArrowRight, ArrowUpRight, CaretDown } from "@phosphor-icons/react";
 import { FaWhatsapp } from "react-icons/fa6";
 import { site } from "@/config/site";
-import { SiteLink } from "./SiteLink";
+import { QuoteCta, SiteLink, isLive } from "./SiteLink";
 
 const quick = [
-  { n: "01", title: "Scaffolding systems", text: "Cuplock, Ringlock, H-Frame & more", href: "/products" },
-  { n: "02", title: "Rental service", text: "Short and long term on rent", href: "/services#rental" },
-  { n: "03", title: "Training & certification", text: "Competent person, erector, inspector", href: "/services#training" },
+  { n: "01", title: "Scaffolding systems", text: "Cuplock, Ringlock, H-Frame & more", href: "/products", wa: "" },
+  { n: "02", title: "Rental service", text: "Short and long term on rent", href: "/services#rental", wa: "Hello SV Products, I would like details about scaffolding on rent." },
+  { n: "03", title: "Training & certification", text: "Competent person, erector, inspector", href: "/services#training", wa: "Hello SV Products, I would like details about scaffolding training and certification." },
 ];
+
+/** Goes to the page when it is live; until then opens WhatsApp with a ready message, so the card is never greyed out. */
+function QuickLink({ q, className, children }: { q: (typeof quick)[number]; className: string; children: React.ReactNode }) {
+  if (isLive(q.href) || !q.wa) return <SiteLink href={q.href} className={className}>{children}</SiteLink>;
+  return <a href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(q.wa)}`} target="_blank" rel="noopener noreferrer" className={className}>{children}</a>;
+}
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -76,9 +82,9 @@ export function Hero() {
             <span className="px-6 py-4 font-semibold">Browse products</span>
             <span className="flex w-12 items-center justify-center bg-black/10"><ArrowRight size={20} weight="bold" className="transition group-hover:translate-x-1" /></span>
           </SiteLink>
-          <SiteLink href={site.cta.href} className="flex items-center rounded-lg border border-white/40 bg-white/5 px-6 py-4 font-semibold backdrop-blur transition hover:bg-white/15">
+          <QuoteCta className="flex items-center rounded-lg border border-white/40 bg-white/5 px-6 py-4 font-semibold backdrop-blur transition hover:bg-white/15">
             {site.cta.label}
-          </SiteLink>
+          </QuoteCta>
           {site.whatsappUrl && (
             <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp us" className="flex w-14 items-center justify-center rounded-lg bg-[#25d366] text-white transition hover:bg-[#1ebe5a]">
               <FaWhatsapp size={28} />
@@ -95,14 +101,14 @@ export function Hero() {
         {/* mobile / tablet quick links - fills the screen under the buttons */}
         <motion.div {...up(1)} className="mt-8 grid gap-2.5 lg:hidden">
           {quick.map((q) => (
-            <SiteLink key={q.n} href={q.href} className="group flex items-center gap-4 rounded-2xl border border-white/20 border-l-4 border-l-forge bg-navy-dark/90 px-4 py-3 shadow-lg shadow-black/30 transition active:bg-furnace">
+            <QuickLink key={q.n} q={q} className="group flex items-center gap-4 rounded-2xl border border-white/20 border-l-4 border-l-forge bg-navy-dark/90 px-4 py-3 shadow-lg shadow-black/30 transition active:bg-furnace">
               <span className="text-2xl font-extrabold text-transparent [-webkit-text-stroke:1.2px_var(--color-forge)]">{q.n}</span>
               <span className="min-w-0 flex-1">
                 <span className="block text-[15px] font-semibold leading-tight">{q.title}</span>
                 <span className="block truncate text-xs text-white/60">{q.text}</span>
               </span>
               <ArrowUpRight size={20} weight="bold" className="shrink-0 text-forge" />
-            </SiteLink>
+            </QuickLink>
           ))}
         </motion.div>
       </div>
@@ -111,7 +117,7 @@ export function Hero() {
       <div className="absolute inset-x-0 bottom-0 hidden lg:block">
         <div className="mx-auto grid max-w-7xl grid-cols-[1fr_1fr_1fr_7rem] px-6">
           {quick.map((q) => (
-            <SiteLink key={q.n} href={q.href} className="group flex items-center justify-between gap-4 border-l border-t border-white/15 bg-navy-dark/70 px-7 py-6 backdrop-blur-md transition first:rounded-tl-xl hover:bg-furnace">
+            <QuickLink key={q.n} q={q} className="group flex items-center justify-between gap-4 border-l border-t border-white/15 bg-navy-dark/70 px-7 py-6 backdrop-blur-md transition first:rounded-tl-xl hover:bg-furnace">
               <span className="flex items-center gap-5">
                 <span className="text-3xl font-extrabold text-transparent [-webkit-text-stroke:1.2px_var(--color-forge)] group-hover:[-webkit-text-stroke:1.2px_white]">{q.n}</span>
                 <span>
@@ -120,7 +126,7 @@ export function Hero() {
                 </span>
               </span>
               <ArrowUpRight size={22} weight="bold" className="shrink-0 text-forge transition group-hover:rotate-45 group-hover:text-white" />
-            </SiteLink>
+            </QuickLink>
           ))}
           <div />
         </div>

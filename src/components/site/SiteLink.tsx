@@ -38,3 +38,9 @@ export function QuoteLink({ product, className = "", children }: { product: stri
     <a href={`https://wa.me/${site.whatsapp}?text=${text}`} target="_blank" rel="noopener noreferrer" className={className}>{children}</a>
   );
 }
+
+/** The main "Get a Quote" button: the quote page when it is live, otherwise WhatsApp (so it is never greyed out). */
+export function QuoteCta({ className = "", children }: { className?: string; children: React.ReactNode }) {
+  if (isLive(site.cta.href)) return <Link href={site.cta.href} className={className}>{children}</Link>;
+  return <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" className={className}>{children}</a>;
+}

@@ -4,7 +4,6 @@ import { getShowcase } from "@/lib/data";
 import { faqs, showcaseSlugs } from "@/config/content";
 import { AboutPreview, Cta, ProcessSteps, ServicesGrid, Stats } from "@/components/site/sections";
 import { Hero, Ticker } from "@/components/site/Hero";
-import { UnderDevelopment } from "@/components/site/UnderDevelopment";
 import { ProductShowcase } from "@/components/site/ProductShowcase";
 import { Reveal, Stagger, StaggerItem } from "@/components/site/motion";
 import { Eyebrow, Faq, MoreLink } from "@/components/site/ui";
@@ -44,7 +43,6 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <UnderDevelopment />
       <Ticker items={tickerItems} />
       <Stats />
 

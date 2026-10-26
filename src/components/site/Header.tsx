@@ -11,7 +11,7 @@ import { site } from "@/config/site";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { Socials } from "./Socials";
 import { ScrollProgress } from "./motion";
-import { SiteLink } from "./SiteLink";
+import { QuoteCta, SiteLink } from "./SiteLink";
 import { AnnouncementBar } from "./AnnouncementBar";
 import type { Announcement } from "@/config/announcement";
 
@@ -105,10 +105,10 @@ export function Header({ announcement }: { announcement?: Announcement | null })
 
             <div className="flex items-center gap-1.5 sm:gap-3">
               <ThemeSwitcher />
-              <SiteLink href={site.cta.href} className="group hidden items-stretch overflow-hidden whitespace-nowrap rounded-lg bg-furnace text-sm font-semibold text-white transition hover:bg-forge hover:text-navy-dark sm:inline-flex">
+              <QuoteCta className="group hidden items-stretch overflow-hidden whitespace-nowrap rounded-lg bg-furnace text-sm font-semibold text-white transition hover:bg-forge hover:text-navy-dark sm:inline-flex">
                 <span className="px-6 py-3">{site.cta.label}</span>
                 <span className="flex w-12 items-center justify-center bg-black/15"><ArrowUpRight size={18} weight="bold" className="transition group-hover:rotate-45" /></span>
-              </SiteLink>
+              </QuoteCta>
               {phone && (
                 <a href={`tel:${phone.number}`} aria-label="Call us" className="flex h-10 w-10 items-center justify-center rounded-lg bg-furnace text-white transition hover:bg-forge hover:text-navy-dark sm:hidden">
                   <Phone size={22} weight="fill" />
@@ -152,10 +152,10 @@ export function Header({ announcement }: { announcement?: Announcement | null })
               </nav>
 
               <div className="relative mt-8 grid gap-3">
-                <SiteLink href={site.cta.href} className="flex items-stretch overflow-hidden rounded-xl bg-furnace text-white">
+                <QuoteCta className="flex items-stretch overflow-hidden rounded-xl bg-furnace text-white">
                   <span className="flex-1 px-6 py-4 text-center font-semibold">{site.cta.label}</span>
                   <span className="flex w-14 items-center justify-center bg-black/15"><ArrowUpRight size={20} weight="bold" /></span>
-                </SiteLink>
+                </QuoteCta>
                 <div className="grid grid-cols-2 gap-3">
                   {phone && <a href={`tel:${phone.number}`} className="flex items-center justify-center gap-2 rounded-xl border border-white/25 py-3.5 text-sm font-medium text-white"><Phone size={18} weight="fill" className="text-forge" />Call</a>}
                   {site.whatsappUrl && <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 rounded-xl bg-[#25d366] py-3.5 text-sm font-medium text-white"><FaWhatsapp size={20} />WhatsApp</a>}
