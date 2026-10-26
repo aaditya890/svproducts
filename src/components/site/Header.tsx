@@ -137,9 +137,8 @@ export function Header({ announcement }: { announcement?: Announcement | null })
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -16 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-40 overflow-y-auto bg-navy-dark px-5 pb-10 pt-[88px] lg:hidden"
+              className={`fixed inset-0 z-40 overflow-y-auto overflow-x-hidden bg-navy-dark px-5 pb-10 lg:hidden ${announcement && !scrolled ? "pt-[124px]" : "pt-[88px]"}`}
             >
-              <div aria-hidden className="pointer-events-none absolute -right-10 top-10 h-52 w-4 rotate-[30deg] bg-furnace" />
               <nav className="relative flex flex-col">
                 {site.nav.map((n, i) => (
                   <motion.div key={n.href} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.05 * i + 0.08 }}>
