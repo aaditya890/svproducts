@@ -16,7 +16,7 @@ export const siteConfig = {
     heroText:
       "Safe, reliable scaffolding and formwork solutions – supply, rental and training – for every height and every site.",
     description:
-      "Steel and aluminium scaffolding, shuttering material, rental service and training & certification.",
+      "Steel scaffolding, shuttering material, rental service and training & certification.",
     foundedYear: "",            // e.g. "2020"
     gstNumber: "",              // e.g. "22ABCDE1234F1Z5"
     cinNumber: "",
@@ -73,7 +73,7 @@ export const siteConfig = {
    * Add a path here when that page is ready, e.g. "/about".
    * Locally you can turn every page on by setting NEXT_PUBLIC_ALL_PAGES=true in .env.local.
    */
-  livePages: ["/"],
+  livePages: ["/", "/about", "/products", "/services", "/contact", "/quote"],
 } as const;
 
 // ---- helpers used by the components (no need to edit) -----------------------

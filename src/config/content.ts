@@ -38,7 +38,6 @@ export const services: { slug: string; icon: IconName; title: string; short: str
     short: "Steel scaffolding systems for every height, load and site.",
     points: [
       "Cuplock, Ringlock, H-Frame and Pipe & Coupler systems",
-      "Aluminium mobile scaffolding towers (single and double width)",
       "Base jacks, U-head jacks, ledgers, braces, platforms and jali",
       "Available in bare, painted and galvanized finishes",
     ],
@@ -80,10 +79,10 @@ export const services: { slug: string; icon: IconName; title: string; short: str
     slug: "custom",
     icon: "ruler",
     title: "Customised Solutions",
-    short: "Design & build in steel and aluminium for special structures.",
+    short: "Design & build in steel for special structures.",
     points: [
-      "Customised steel and aluminium scaffolding to your drawings",
-      "Tall towers, cantilever platforms, truck ladders and joint towers",
+      "Customised steel scaffolding to your drawings",
+      "Tall towers, cantilever platforms and staircase structures",
       "Engineering support from design to supply",
     ],
   },
@@ -102,17 +101,16 @@ export const process: { icon: IconName; title: string; text: string }[] = [
  */
 export const productGroups: { title: string; slugs: string[] }[] = [
   { title: "MS Scaffolding", slugs: ["cuplock", "ringlock", "h-frame", "pipe-coupler", "universal-components"] },
-  { title: "Aluminium Scaffolding", slugs: ["single-width-towers", "double-width-towers", "customized-aluminium-scaffolds"] },
-  { title: "Shuttering & Formwork", slugs: ["aluminium-formwork", "ms-formwork"] },
+  { title: "Shuttering & Formwork", slugs: ["ms-formwork"] },
   { title: "Lifts (MEWP)", slugs: ["boom-lifts", "scissor-lifts", "personal-lifts"] },
 ];
 
 /** Ranges used in the home-page product showcase (keep it to about 7 so the panels stay readable). */
-export const showcaseSlugs = ["cuplock", "ringlock", "h-frame", "pipe-coupler", "double-width-towers", "aluminium-formwork", "ms-formwork"];
+export const showcaseSlugs = ["cuplock", "ringlock", "h-frame", "pipe-coupler", "universal-components", "ms-formwork"];
 
 export const faqs: { q: string; a: string }[] = [
   { q: "Do you supply scaffolding on rent as well as for sale?", a: "Yes. Most of our scaffolding and shuttering material is available both for purchase and on rental. Contact us with your duration and quantity for availability." },
-  { q: "Which scaffolding systems do you offer?", a: "Steel Cuplock, Ringlock, H-Frame and Pipe & Coupler systems with universal components, plus aluminium mobile scaffolding towers and customised solutions." },
+  { q: "Which scaffolding systems do you offer?", a: "Steel Cuplock, Ringlock, H-Frame and Pipe & Coupler systems with universal components, plus MS formwork, lifts and customised solutions." },
   { q: "Can you supply items that are not in the catalogue?", a: "Yes, please send us your requirement or drawing and we will tell you what we can supply or make." },
   { q: "Do you provide training and certification?", a: "Yes. We offer scaffolding training such as Competent Person, Inspector, Erector, hands-on and design/loading awareness. Ask us for the next schedule." },
   { q: "How do I get a quotation?", a: "Use the Request a Quote form, call or WhatsApp us. Tell us the system, quantity, working height and whether you need purchase or rental." },

@@ -69,11 +69,11 @@ const aboutPills = [
   { label: "Ringlock", cls: "right-[-2%] top-[10%] rotate-6" },
   { label: "H-Frame", cls: "left-[-4%] top-[52%] rotate-3" },
   { label: "Pipe & Coupler", cls: "right-[-3%] top-[44%] -rotate-3" },
-  { label: "Aluminium Towers", cls: "left-[6%] bottom-[7%] -rotate-3" },
+  { label: "MS Formwork", cls: "left-[6%] bottom-[7%] -rotate-3" },
   { label: "Rental & Training", cls: "right-[2%] bottom-[3%] rotate-3" },
 ];
 
-/** About band: gold background, navy circle with the aluminium tower breaking out, floating labels, big numbers. */
+/** About band: gold background, navy circle with the scaffold frames breaking out, floating labels, big numbers. */
 export function AboutPreview({ stats: s3 }: { stats?: { value: string; label: string }[] }) {
   const numbers = s3 ?? [];
   return (
@@ -88,7 +88,7 @@ export function AboutPreview({ stats: s3 }: { stats?: { value: string; label: st
             <div aria-hidden className="absolute inset-[7%] rounded-full bg-navy-dark shadow-2xl" />
             <div aria-hidden className="absolute inset-[7%] rounded-full opacity-40 [background-image:repeating-conic-gradient(from_0deg_at_50%_100%,var(--color-forge)_0deg_2deg,transparent_2deg_10deg)] [mask-image:radial-gradient(circle_at_50%_100%,#000_10%,transparent_75%)]" />
             <div className="absolute inset-[7%] [clip-path:inset(-62%_-6%_0_-6%_round_0_0_50%_50%)]">
-              <Image src="/products/k_cant_hero.png" alt="Aluminium scaffolding tower" fill sizes="(min-width:1024px) 440px, 90vw" className="object-contain object-bottom drop-shadow-[0_24px_30px_rgba(0,0,0,0.45)]" priority={false} />
+              <Image src="/products/a31.png" alt="H-Frame scaffolding frames" fill sizes="(min-width:1024px) 440px, 90vw" className="object-contain object-bottom drop-shadow-[0_24px_30px_rgba(0,0,0,0.45)]" priority={false} />
             </div>
             {aboutPills.map((p) => (
               <span key={p.label} className={`absolute ${p.cls} whitespace-nowrap rounded-full bg-white px-3.5 py-2 text-xs font-semibold text-navy-dark shadow-lg transition hover:scale-105 sm:px-5 sm:py-2.5 sm:text-sm`}>

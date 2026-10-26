@@ -87,7 +87,7 @@ export function Hero() {
         </motion.div>
 
         <motion.ul {...up(0.9)} className="mt-8 hidden flex-wrap gap-x-8 gap-y-2 text-sm text-white/75 sm:flex">
-          {["Steel & aluminium systems", "Purchase or rental", "Training & certification"].map((t) => (
+          {["Steel scaffolding systems", "Purchase or rental", "Training & certification"].map((t) => (
             <li key={t} className="flex items-center gap-2"><span className="h-2 w-2 rotate-45 bg-forge" />{t}</li>
           ))}
         </motion.ul>

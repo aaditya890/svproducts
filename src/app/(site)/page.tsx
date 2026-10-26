@@ -11,12 +11,12 @@ import { Eyebrow, Faq, MoreLink } from "@/components/site/ui";
 
 const features = [
   { icon: ShieldCheck, title: "Safety first", text: "Every product is built around safe working at height." },
-  { icon: Stack, title: "Full range", text: "Cuplock, Ringlock, H-Frame, Pipe & Coupler and aluminium towers." },
+  { icon: Stack, title: "Full range", text: "Cuplock, Ringlock, H-Frame, Pipe & Coupler, formwork and lifts." },
   { icon: Cube, title: "Supply & rental", text: "Buy or rent scaffolding and shuttering material for any site." },
   { icon: HardHat, title: "Training", text: "Scaffolding training and certification for your team." },
 ];
 
-const tickerItems = ["Cuplock Scaffolding", "Ringlock Scaffolding", "H-Frame Scaffolding", "Pipe & Coupler", "Aluminium Towers", "Shuttering Material", "Rental Service", "Training & Certification"];
+const tickerItems = ["Cuplock Scaffolding", "Ringlock Scaffolding", "H-Frame Scaffolding", "Pipe & Coupler", "MS Formwork", "Shuttering Material", "Rental Service", "Training & Certification"];
 
 async function About() {
   const ranges = await getShowcase();
