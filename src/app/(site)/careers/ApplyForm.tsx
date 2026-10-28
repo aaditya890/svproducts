@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState } from "react";
 import { CheckCircle, SpinnerGap } from "@phosphor-icons/react";
 import { submitApplication, type ApplyState } from "./actions";
 
@@ -18,9 +18,8 @@ function Field({ label, error, children }: { label: string; error?: string; chil
   );
 }
 
-/** "Apply now" button that opens a short application form under the job card. */
-export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string }) {
-  const [open, setOpen] = useState(false);
+/** Short application form shown under the job card when the card's "Apply now" button is pressed. */
+export function ApplyForm({ jobId, jobTitle, open, onClose }: { jobId: string; jobTitle: string; open: boolean; onClose: () => void }) {
   const [state, action, pending] = useActionState(submitApplication, initial);
   const e = state.errors ?? {};
 
@@ -34,13 +33,11 @@ export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string
     );
   }
 
+  if (!open) return null;
+
   return (
     <div className="mt-4">
-      {!open ? (
-        <button onClick={() => setOpen(true)} className="rounded-md bg-furnace px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy">
-          Apply now
-        </button>
-      ) : (
+      {(
         <form action={action} className="space-y-3 rounded-xl border border-forge/40 bg-cream/60 p-4 sm:p-5">
           <p className="text-sm font-semibold text-navy">Apply for: {jobTitle}</p>
           <input type="hidden" name="job_id" value={jobId} />
@@ -59,7 +56,7 @@ export function ApplyForm({ jobId, jobTitle }: { jobId: string; jobTitle: string
             <button type="submit" disabled={pending} className="inline-flex items-center gap-2 rounded-md bg-furnace px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy disabled:opacity-60">
               {pending && <SpinnerGap className="animate-spin" size={16} />} Send application
             </button>
-            <button type="button" onClick={() => setOpen(false)} className="text-sm font-medium text-steel hover:text-navy">Cancel</button>
+            <button type="button" onClick={onClose} className="text-sm font-medium text-steel hover:text-navy">Cancel</button>
           </div>
         </form>
       )}

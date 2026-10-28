@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Briefcase, CalendarBlank, GraduationCap, MapPin, UsersThree } from "@phosphor-icons/react/ssr";
+import { Briefcase } from "@phosphor-icons/react/ssr";
 import { site } from "@/config/site";
 import { getOpenJobs } from "@/lib/data";
 import { PageHero } from "@/components/site/ui";
-import { ApplyForm } from "./ApplyForm";
+import { JobCard } from "./JobCard";
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -26,27 +26,25 @@ async function Openings() {
     );
   }
 
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+  const dayMs = 86_400_000;
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5">
       {jobs.map((j) => (
-        <article key={j.id} className="overflow-hidden rounded-2xl border border-forge/30 bg-white shadow-sm">
-          <div className="border-b-4 border-forge bg-cream px-5 py-4 sm:px-6">
-            <h2 className="text-xl font-bold text-navy sm:text-2xl">{j.title}</h2>
-            {j.location && <p className="mt-1 flex items-center gap-1.5 text-sm text-steel"><MapPin size={15} weight="fill" className="text-furnace" />{j.location}</p>}
-          </div>
-          <div className="p-5 sm:p-6">
-            {j.description && <p className="whitespace-pre-line break-words leading-relaxed text-steel">{j.description}</p>}
-            <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
-              {j.qualification && (
-                <div className="flex gap-2"><GraduationCap size={20} className="mt-0.5 shrink-0 text-furnace" /><div><dt className="font-semibold text-navy">Qualification</dt><dd className="break-words text-steel">{j.qualification}</dd></div></div>
-              )}
-              <div className="flex gap-2"><UsersThree size={20} className="mt-0.5 shrink-0 text-furnace" /><div><dt className="font-semibold text-navy">Vacancies</dt><dd className="text-steel">{j.vacancies}</dd></div></div>
-              <div className="flex gap-2"><CalendarBlank size={20} className="mt-0.5 shrink-0 text-furnace" /><div><dt className="font-semibold text-navy">Opening date</dt><dd className="text-steel">{fmt(j.opening_date)}</dd></div></div>
-              <div className="flex gap-2"><CalendarBlank size={20} className="mt-0.5 shrink-0 text-furnace" /><div><dt className="font-semibold text-navy">Closing date</dt><dd className="text-steel">{fmt(j.closing_date)}</dd></div></div>
-            </dl>
-            <ApplyForm jobId={j.id} jobTitle={j.title} />
-          </div>
-        </article>
+        <JobCard
+          key={j.id}
+          job={{
+            id: j.id,
+            title: j.title,
+            location: j.location,
+            qualification: j.qualification,
+            description: j.description,
+            vacancies: j.vacancies,
+            openingLabel: fmt(j.opening_date),
+            closingLabel: fmt(j.closing_date),
+            daysLeft: Math.round((new Date(`${j.closing_date}T00:00:00Z`).getTime() - new Date(`${today}T00:00:00Z`).getTime()) / dayMs),
+          }}
+        />
       ))}
     </div>
   );
