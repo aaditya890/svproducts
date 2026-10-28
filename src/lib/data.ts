@@ -99,6 +99,8 @@ export async function getAnnouncement(): Promise<Announcement | null> {
 export type Job = {
   id: string; title: string; description: string; qualification: string; vacancies: number;
   location: string; opening_date: string; closing_date: string;
+  /** whole days until the closing date (0 = closes today); worked out here, inside the cache, because the page itself may not read the clock */
+  daysLeft: number;
 };
 
 /** Jobs that are switched on AND whose opening/closing dates include today (India time). Empty list = "no current openings". */
@@ -116,7 +118,11 @@ export async function getOpenJobs(): Promise<Job[]> {
       .gte("closing_date", today)
       .order("closing_date");
     if (error) return [];
-    return (data ?? []) as Job[];
+    const dayMs = 86_400_000;
+    return (data ?? []).map((j) => ({
+      ...j,
+      daysLeft: Math.round((new Date(`${j.closing_date}T00:00:00Z`).getTime() - new Date(`${today}T00:00:00Z`).getTime()) / dayMs),
+    })) as Job[];
   } catch {
     return [];
   }

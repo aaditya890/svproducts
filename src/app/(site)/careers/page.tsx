@@ -26,8 +26,6 @@ async function Openings() {
     );
   }
 
-  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
-  const dayMs = 86_400_000;
   return (
     <div className="space-y-4 sm:space-y-5">
       {jobs.map((j) => (
@@ -42,7 +40,7 @@ async function Openings() {
             vacancies: j.vacancies,
             openingLabel: fmt(j.opening_date),
             closingLabel: fmt(j.closing_date),
-            daysLeft: Math.round((new Date(`${j.closing_date}T00:00:00Z`).getTime() - new Date(`${today}T00:00:00Z`).getTime()) / dayMs),
+            daysLeft: j.daysLeft,
           }}
         />
       ))}
