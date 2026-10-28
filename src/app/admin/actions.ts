@@ -224,3 +224,72 @@ export async function deleteQuote(formData: FormData) {
   if (error) throw new Error(error.message);
   revalidatePath("/admin", "layout");
 }
+
+// ---------------------------------------------------------------- careers
+const dateStr = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Pick a valid date");
+const jobSchema = z.object({
+  id: z.string().uuid().optional(),
+  title: z.string().trim().min(2, "Job title is required").max(120),
+  description: z.string().trim().max(600, "Description can be at most 600 characters"),
+  qualification: z.string().trim().max(300, "Qualification can be at most 300 characters"),
+  vacancies: z.coerce.number().int().min(1, "Vacancies must be at least 1").max(999),
+  location: z.string().trim().max(100),
+  opening_date: dateStr,
+  closing_date: dateStr,
+  is_active: z.boolean(),
+});
+
+export async function saveJob(formData: FormData) {
+  const { supabase } = await requireAdmin();
+  const parsed = jobSchema.safeParse({
+    id: str(formData.get("id")) || undefined,
+    title: str(formData.get("title")),
+    description: str(formData.get("description")),
+    qualification: str(formData.get("qualification")),
+    vacancies: str(formData.get("vacancies")) || "1",
+    location: str(formData.get("location")),
+    opening_date: str(formData.get("opening_date")),
+    closing_date: str(formData.get("closing_date")),
+    is_active: formData.get("is_active") === "on",
+  });
+  if (!parsed.success) throw new Error(parsed.error.issues[0]?.message ?? "Invalid job");
+  const { id, ...row } = parsed.data;
+  if (row.closing_date < row.opening_date) throw new Error("Closing date must be on or after the opening date.");
+  const { error } = id ? await supabase.from("jobs").update(row).eq("id", id) : await supabase.from("jobs").insert(row);
+  if (error) throw new Error(error.message);
+  updateTag("jobs"); // the careers page shows the change straight away
+  revalidatePath("/admin", "layout");
+}
+
+export async function deleteJob(formData: FormData) {
+  const { supabase } = await requireAdmin();
+  const { error } = await supabase.from("jobs").delete().eq("id", str(formData.get("id")));
+  if (error) throw new Error(error.message);
+  updateTag("jobs");
+  revalidatePath("/admin", "layout");
+}
+
+const appStatuses = ["new", "shortlisted", "interview", "hired", "rejected"];
+export async function setApplicationStatus(formData: FormData) {
+  const { supabase } = await requireAdmin();
+  const status = str(formData.get("status"));
+  if (!appStatuses.includes(status)) throw new Error("Invalid status");
+  const { error } = await supabase.from("job_applications").update({ status }).eq("id", str(formData.get("id")));
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin", "layout");
+}
+
+export async function saveApplicationNote(formData: FormData) {
+  const { supabase } = await requireAdmin();
+  const notes = str(formData.get("notes")).slice(0, 2000);
+  const { error } = await supabase.from("job_applications").update({ notes: notes || null }).eq("id", str(formData.get("id")));
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin", "layout");
+}
+
+export async function deleteApplication(formData: FormData) {
+  const { supabase } = await requireAdmin();
+  const { error } = await supabase.from("job_applications").delete().eq("id", str(formData.get("id")));
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin", "layout");
+}

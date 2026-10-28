@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getCategories, getCategoryWithProducts } from "@/lib/data";
@@ -14,7 +13,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/products/[category]">): Promise<Metadata> {
   const { category } = await params;
   const data = await getCategoryWithProducts(category);
-  return { title: data ? data.category.name : "Products" };
+  if (!data) return { title: "Products" };
+  const n = data.products.length;
+  return {
+    title: data.category.name,
+    description: `${data.category.name} from SV Products Pvt. Ltd.: ${n} product type${n === 1 ? "" : "s"} with sizes and specifications. Ask for a quote or rental.`,
+  };
 }
 
 async function Content({ params }: { params: PageProps<"/products/[category]">["params"] }) {

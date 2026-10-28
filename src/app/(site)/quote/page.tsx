@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 async function Form({ searchParams }: { searchParams: PageProps<"/quote">["searchParams"] }) {
   const sp = await searchParams;
   const product = typeof sp.product === "string" ? sp.product.slice(0, 200) : undefined;
-  return <QuoteForm product={product} />;
+  // key = product: opening the form from a different product/service starts a fresh form with the right label
+  return <QuoteForm key={product ?? ""} product={product} />;
 }
 
 const steps = [

@@ -56,7 +56,7 @@ export function QuoteForm({ product }: { product?: string }) {
         <Field label="Email" name="email" error={e.email}><input id="email" name="email" type="email" className={input} autoComplete="email" /></Field>
         <Field label="Company" name="company" error={e.company}><input id="company" name="company" className={input} autoComplete="organization" /></Field>
         <Field label="City / site location" name="city" error={e.city}><input id="city" name="city" className={input} /></Field>
-        <Field label="Product" name="product" error={e.product}><input id="product" name="product" defaultValue={product} className={input} placeholder="e.g. Cuplock Vertical" /></Field>
+        <Field label="Product" name="product" error={e.product}><input id="product" name="product" defaultValue={product} autoComplete="off" className={input} placeholder="e.g. Cuplock Vertical" /></Field>
       </div>
       <Field label="Your requirement *" name="message" error={e.message}>
         <textarea id="message" name="message" rows={5} className={input} placeholder="Quantity, sizes, purchase or rental, working height, project details..." />

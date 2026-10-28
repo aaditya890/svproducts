@@ -95,3 +95,29 @@ export async function getAnnouncement(): Promise<Announcement | null> {
     return null;
   }
 }
+
+export type Job = {
+  id: string; title: string; description: string; qualification: string; vacancies: number;
+  location: string; opening_date: string; closing_date: string;
+};
+
+/** Jobs that are switched on AND whose opening/closing dates include today (India time). Empty list = "no current openings". */
+export async function getOpenJobs(): Promise<Job[]> {
+  "use cache";
+  cacheTag("jobs");
+  cacheLife("minutes");
+  try {
+    const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" }); // YYYY-MM-DD
+    const { data, error } = await db()
+      .from("jobs")
+      .select("id,title,description,qualification,vacancies,location,opening_date,closing_date")
+      .eq("is_active", true)
+      .lte("opening_date", today)
+      .gte("closing_date", today)
+      .order("closing_date");
+    if (error) return [];
+    return (data ?? []) as Job[];
+  } catch {
+    return [];
+  }
+}

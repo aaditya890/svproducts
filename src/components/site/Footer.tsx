@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { cacheLife } from "next/cache";
 import { Clock, Envelope as Mail, MapPin, Phone } from "@phosphor-icons/react/ssr";
 import { site } from "@/config/site";

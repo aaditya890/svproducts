@@ -7,7 +7,10 @@ import { productGroups } from "@/config/content";
 import { getCategoryCards } from "@/lib/data";
 import { PageHero } from "@/components/site/ui";
 
-export const metadata: Metadata = { title: "Products" };
+export const metadata: Metadata = {
+  title: "Products",
+  description: "Cuplock, Ringlock, H-Frame, Pipe & Coupler, MS formwork and lifts: every product with sizes and specifications from SV Products Pvt. Ltd.",
+};
 
 type Card = Awaited<ReturnType<typeof getCategoryCards>>[number];
 

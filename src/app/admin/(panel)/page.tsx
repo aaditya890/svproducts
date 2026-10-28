@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AlertTriangle, Boxes, FolderTree, Inbox, Layers, Phone, TrendingUp } from "lucide-react";
+import { AlertTriangle, Boxes, Briefcase, FolderTree, Inbox, Layers, Phone, TrendingUp, UserCheck } from "lucide-react";
 import { requireAdmin } from "@/lib/admin";
 
 // Private admin page: always fetches live data, never prerendered.
@@ -17,14 +17,18 @@ export default async function Dashboard() {
     return c ?? 0;
   };
   // one parallel batch = one round trip to the database instead of four in a row
-  const [products, variants, categories, { data: leads }] = await Promise.all([
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Kolkata" });
+  const [products, variants, categories, { data: leads }, { count: openJobs }, { count: newApps }, { count: totalApps }] = await Promise.all([
     count("products"),
     count("product_variants"),
     count("categories"),
     supabase.from("quote_requests").select("id,created_at,name,phone,status,message,city,items").order("created_at", { ascending: false }).limit(1000),
+    supabase.from("jobs").select("*", { count: "exact", head: true }).eq("is_active", true).lte("opening_date", today).gte("closing_date", today),
+    supabase.from("job_applications").select("*", { count: "exact", head: true }).eq("status", "new"),
+    supabase.from("job_applications").select("*", { count: "exact", head: true }),
   ]);
   const all = leads ?? [];
-  const now = Date.now();
+  const now = new Date().getTime();
 
   const byStatus = Object.fromEntries(statuses.map((s) => [s, all.filter((l) => l.status === s).length])) as Record<string, number>;
   const last7 = all.filter((l) => now - new Date(l.created_at).getTime() < 7 * DAY).length;
@@ -56,6 +60,8 @@ export default async function Dashboard() {
     { label: "Leads this week", value: last7, icon: TrendingUp, href: "/admin/quotes", sub: `${trend >= 0 ? "+" : ""}${trend} vs last week` },
     { label: "Products", value: products, icon: Boxes, href: "/admin/products", sub: `${variants} sizes listed` },
     { label: "Categories", value: categories, icon: FolderTree, href: "/admin/categories", sub: "product ranges" },
+    { label: "Open jobs", value: openJobs ?? 0, icon: Briefcase, href: "/admin/jobs", sub: "on the Careers page now" },
+    { label: "Job applications", value: totalApps ?? 0, icon: UserCheck, href: "/admin/applications", hot: (newApps ?? 0) > 0, sub: `${newApps ?? 0} new` },
   ];
   const name = user.email.split("@")[0];
 

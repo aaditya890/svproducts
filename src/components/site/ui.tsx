@@ -1,5 +1,4 @@
 import type { ComponentType, ReactNode } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowDownRight } from "@phosphor-icons/react/ssr";
 import { Check, ClipboardText as ClipboardList, GraduationCap, Hammer, Stack as Layers, CalendarCheck as CalendarClock, Package, Phone, Ruler, ShieldCheck, Truck, Wrench, CaretDown as ChevronDown } from "@phosphor-icons/react/ssr";
@@ -52,7 +51,8 @@ export function SectionHeading({ eyebrow, title, accent, text, center }: { eyebr
 export function PageHero({ title, accent, crumb, parent, text }: { title: string; accent?: string; crumb: string; parent?: { href: string; label: string }; text?: string }) {
   return (
     <section className="relative isolate overflow-hidden bg-navy-dark text-white">
-      <Image src="/hero/site.webp" alt="" fill priority sizes="100vw" className="-z-30 object-cover object-[70%_center] brightness-110" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/hero/site.webp" srcSet="/hero/site-960.webp 960w, /hero/site.webp 1920w" sizes="100vw" alt="" fetchPriority="high" decoding="async" className="absolute inset-0 -z-30 h-full w-full object-cover object-[70%_center] brightness-110" />
       <div aria-hidden className="absolute inset-0 -z-20 bg-gradient-to-r from-navy-dark via-navy-dark/85 to-navy-dark/55" />
       <div aria-hidden className="absolute inset-0 -z-10 opacity-[0.07] [background-image:linear-gradient(#fff_1px,transparent_1px),linear-gradient(90deg,#fff_1px,transparent_1px)] [background-size:56px_56px]" />
       <div aria-hidden className="absolute bottom-0 right-0 -z-10 h-12 w-12 rounded-tl-2xl bg-furnace sm:h-16 sm:w-16" />

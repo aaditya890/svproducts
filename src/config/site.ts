@@ -62,6 +62,7 @@ export const siteConfig = {
     { href: "/about", label: "About" },
     { href: "/products", label: "Products" },
     { href: "/services", label: "Services" },
+    { href: "/careers", label: "Careers" },
     { href: "/contact", label: "Contact" },
   ],
 
@@ -73,7 +74,7 @@ export const siteConfig = {
    * Add a path here when that page is ready, e.g. "/about".
    * Locally you can turn every page on by setting NEXT_PUBLIC_ALL_PAGES=true in .env.local.
    */
-  livePages: ["/", "/about", "/products", "/services", "/contact", "/quote"],
+  livePages: ["/", "/about", "/products", "/services", "/careers", "/contact", "/quote"],
 } as const;
 
 // ---- helpers used by the components (no need to edit) -----------------------

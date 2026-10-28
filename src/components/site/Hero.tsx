@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ArrowUpRight, CaretDown } from "@phosphor-icons/react";
 import { FaWhatsapp } from "react-icons/fa6";
@@ -40,7 +39,9 @@ export function Hero() {
     <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-navy-dark text-white lg:min-h-[min(100svh,860px)]">
       {/* real site photo with parallax */}
       <motion.div style={reduce ? undefined : { y: yBg }} className="absolute inset-x-0 -top-10 -z-30 h-[calc(100%+120px)]">
-        <Image src="/hero/site.webp" alt="" fill priority sizes="100vw" className="object-cover object-[70%_center] brightness-125 lg:grayscale-[20%] lg:brightness-110" />
+        {/* two sizes of the same photo: phones download the 113 KB one, big screens the 276 KB one */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/hero/site.webp" srcSet="/hero/site-960.webp 960w, /hero/site.webp 1920w" sizes="100vw" alt="" fetchPriority="high" decoding="async" className="absolute inset-0 h-full w-full object-cover object-[70%_center] brightness-125 lg:grayscale-[20%] lg:brightness-110" />
       </motion.div>
       {/* colour + readability overlays */}
       <div aria-hidden className="absolute inset-0 -z-20 bg-gradient-to-b from-navy-dark/85 via-navy-dark/55 to-navy-dark/70 lg:bg-gradient-to-r lg:from-navy-dark lg:via-navy-dark/75 lg:to-navy-dark/20" />
