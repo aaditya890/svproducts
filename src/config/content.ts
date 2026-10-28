@@ -30,6 +30,15 @@ export const about = {
 /** Optional numbers strip on the home page. Leave empty [] to hide it. Example: { value: "500+", label: "Projects supplied" } */
 export const stats: { value: string; label: string }[] = [];
 
+/** Photo shown on the Services page for each service (files live in /public/services). */
+export const serviceImages: Record<string, { src: string; alt: string }> = {
+  scaffolding: { src: "/services/scaffolding.webp", alt: "Large steel scaffolding erected around a structure" },
+  shuttering: { src: "/services/shuttering.webp", alt: "Props and shuttering supporting a slab" },
+  rental: { src: "/services/rental.webp", alt: "Boom lift working at height" },
+  training: { src: "/services/training.webp", alt: "Workers in safety vests on a scaffold site" },
+  custom: { src: "/services/custom.webp", alt: "Customised cuplock scaffold built around a dome" },
+};
+
 export const services: { slug: string; icon: IconName; title: string; short: string; points: string[] }[] = [
   {
     slug: "scaffolding",

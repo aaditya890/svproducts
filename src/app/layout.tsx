@@ -18,7 +18,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: `${site.name} | Scaffolding & Shuttering`, template: `%s | ${site.name}` },
   description: site.description,
-  icons: { icon: site.logo },
   openGraph: { siteName: site.name, type: "website", locale: "en_IN" },
   twitter: { card: "summary_large_image" },
 };
