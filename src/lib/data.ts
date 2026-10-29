@@ -116,7 +116,8 @@ export async function getOpenJobs(): Promise<Job[]> {
       .eq("is_active", true)
       .lte("opening_date", today)
       .gte("closing_date", today)
-      .order("closing_date");
+      .order("closing_date")
+      .order("created_at"); // same closing date: keep the order the jobs were added in
     if (error) return [];
     const dayMs = 86_400_000;
     return (data ?? []).map((j) => ({
