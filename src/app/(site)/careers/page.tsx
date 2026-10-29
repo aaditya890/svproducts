@@ -27,7 +27,7 @@ async function Openings() {
   }
 
   return (
-    <div className="space-y-4 sm:space-y-5">
+    <div className={`grid items-start gap-4 sm:gap-5 ${jobs.length > 1 ? "lg:grid-cols-2" : "mx-auto max-w-3xl"}`}>
       {jobs.map((j) => (
         <JobCard
           key={j.id}
@@ -52,7 +52,7 @@ export default function CareersPage() {
   return (
     <>
       <PageHero title="Join our" accent="team" crumb="Careers" text="Current openings at SV Products Pvt. Ltd." />
-      <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 sm:py-12">
+      <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
         <Suspense fallback={<div className="h-64 animate-pulse rounded-2xl bg-mist" />}>
           <Openings />
         </Suspense>
