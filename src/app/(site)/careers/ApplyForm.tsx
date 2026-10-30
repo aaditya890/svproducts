@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { CheckCircle, SpinnerGap } from "@phosphor-icons/react";
 import { submitApplication, type ApplyState } from "./actions";
 
@@ -22,6 +22,16 @@ function Field({ label, error, children }: { label: string; error?: string; chil
 export function ApplyForm({ jobId, jobTitle, open, onClose }: { jobId: string; jobTitle: string; open: boolean; onClose: () => void }) {
   const [state, action, pending] = useActionState(submitApplication, initial);
   const e = state.errors ?? {};
+
+  // the application is already saved; this only emails an alert, so a failure here is ignored
+  useEffect(() => {
+    if (!state.ok || !state.notify) return;
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(state.notify),
+    }).catch(() => {});
+  }, [state]);
 
   if (state.ok) {
     return (

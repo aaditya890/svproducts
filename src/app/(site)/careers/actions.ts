@@ -15,7 +15,9 @@ const schema = z.object({
   website: z.string().max(0).optional(), // honeypot - bots fill it, people never see it
 });
 
-export type ApplyState = { ok: boolean; message: string; errors?: Record<string, string> };
+/** Email-notification payload for Web3Forms. Sent from the browser (their free plan blocks server-side calls). */
+export type ApplyNotify = Record<string, string>;
+export type ApplyState = { ok: boolean; message: string; errors?: Record<string, string>; notify?: ApplyNotify };
 
 export async function submitApplication(_prev: ApplyState, formData: FormData): Promise<ApplyState> {
   const parsed = schema.safeParse(Object.fromEntries(formData));
@@ -51,5 +53,31 @@ export async function submitApplication(_prev: ApplyState, formData: FormData): 
     console.error("application insert failed", error.message);
     return { ok: false, message: "Sorry, we could not send your application. Please call us instead." };
   }
-  return { ok: true, message: "Thank you! Your application has been received. We will contact you if you are shortlisted." };
+
+  // Optional email alert. The access key is read here at runtime, so switching to another Web3Forms account
+  // only needs the WEB3FORMS_ACCESS_KEY env var changed (and a redeploy). Without the key, no email is sent.
+  const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
+  const notify: ApplyNotify | undefined = accessKey
+    ? {
+        access_key: accessKey,
+        subject: `New job application: ${job.title} - ${d.name}`,
+        from_name: "SV Products website",
+        name: d.name,
+        ...(d.email ? { email: d.email } : {}),
+        message: [
+          `Job: ${job.title}`,
+          `Name: ${d.name}`,
+          `Phone: ${d.phone}`,
+          `Email: ${d.email || "-"}`,
+          `Qualification: ${d.qualification || "-"}`,
+          `Experience: ${d.experience || "-"}`,
+          `Resume link: ${d.resume_link || "-"}`,
+          `Message: ${d.message || "-"}`,
+          "",
+          "View all applications: Admin > Applications",
+        ].join("\n"),
+      }
+    : undefined;
+
+  return { ok: true, message: "Thank you! Your application has been received. We will contact you if you are shortlisted.", notify };
 }
