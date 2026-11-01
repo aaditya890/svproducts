@@ -1,3 +1,4 @@
+import Script from "next/script";
 import { Header, HeaderSpacer } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
@@ -24,6 +25,9 @@ const jsonLd = {
   },
 };
 
+// Google Analytics (GA4). Public pages only, never /admin. Set NEXT_PUBLIC_GA_ID (e.g. G-XXXXXXXXXX); empty = off.
+const gaId = process.env.NEXT_PUBLIC_GA_ID;
+
 export default async function SiteLayout({ children }: LayoutProps<"/">) {
   const announcement = await getAnnouncement();
   return (
@@ -34,6 +38,14 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
       <main className="flex-1 overflow-x-clip">{children}</main>
       <Footer />
       <WhatsAppButton />
+      {gaId && (
+        <>
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
+          <Script id="ga4" strategy="afterInteractive">
+            {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`}
+          </Script>
+        </>
+      )}
     </>
   );
 }
