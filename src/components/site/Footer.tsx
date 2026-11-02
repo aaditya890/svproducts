@@ -50,7 +50,7 @@ export function Footer() {
               <li className="flex gap-3"><Mail size={20} weight="fill" className="shrink-0 text-forge" /><a href={`mailto:${site.email}`} className="hover:text-forge">{site.email}</a></li>
             )}
             {site.hrEmail && (
-              <li className="flex gap-3"><Mail size={20} weight="fill" className="shrink-0 text-forge" /><a href={`mailto:${site.hrEmail}`} className="hover:text-forge">{site.hrEmail} (HR / Careers)</a></li>
+              <li className="flex gap-3"><Mail size={20} weight="fill" className="shrink-0 text-forge" /><a href={`mailto:${site.hrEmail}`} className="hover:text-forge">{site.hrEmail}</a></li>
             )}
             {site.hours && <li className="flex gap-3"><Clock size={20} weight="fill" className="shrink-0 text-forge" />{site.hours}</li>}
           </ul>
