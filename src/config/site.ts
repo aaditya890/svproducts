@@ -30,6 +30,7 @@ export const siteConfig = {
     whatsapp: "917566666603",   // digits only, with country code
     whatsappMessage: "Hello SV Products, I would like a quotation.",
     email: "info@svproducts.in",
+    hrEmail: "hr@svproducts.in",   // shown on the Careers page and in the footer
     salesEmail: "",
     address: {
       line1: "Unit: Buchipar",

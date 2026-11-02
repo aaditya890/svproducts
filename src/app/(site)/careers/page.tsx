@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Briefcase } from "@phosphor-icons/react/ssr";
+import { Briefcase, Envelope } from "@phosphor-icons/react/ssr";
 import { site } from "@/config/site";
 import { getOpenJobs } from "@/lib/data";
 import { PageHero } from "@/components/site/ui";
@@ -21,7 +21,7 @@ async function Openings() {
       <div className="rounded-2xl border border-forge/30 bg-cream p-10 text-center">
         <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-navy text-forge"><Briefcase size={26} /></span>
         <h2 className="mt-4 text-2xl font-bold text-navy">No current openings</h2>
-        <p className="mx-auto mt-2 max-w-md text-steel">We do not have any open positions right now. Please check again soon{site.email ? <>, or write to us at <a href={`mailto:${site.email}`} className="font-semibold text-furnace hover:underline">{site.email}</a></> : null}.</p>
+        <p className="mx-auto mt-2 max-w-md text-steel">We do not have any open positions right now. Please check again soon{site.email ? <>, or write to us at <a href={`mailto:${site.hrEmail || site.email}`} className="font-semibold text-furnace hover:underline">{site.hrEmail || site.email}</a></> : null}.</p>
       </div>
     );
   }
@@ -48,6 +48,17 @@ async function Openings() {
   );
 }
 
+function HrContact() {
+  if (!site.hrEmail) return null;
+  return (
+    <p className="mt-8 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-2xl bg-navy/5 px-5 py-4 text-center text-sm text-navy sm:text-base">
+      <Envelope size={20} weight="fill" className="text-furnace" />
+      Questions about a job? Write to HR at
+      <a href={`mailto:${site.hrEmail}`} className="font-semibold text-furnace hover:underline">{site.hrEmail}</a>
+    </p>
+  );
+}
+
 export default function CareersPage() {
   return (
     <>
@@ -56,6 +67,7 @@ export default function CareersPage() {
         <Suspense fallback={<div className="h-64 animate-pulse rounded-2xl bg-mist" />}>
           <Openings />
         </Suspense>
+        <HrContact />
       </div>
     </>
   );
